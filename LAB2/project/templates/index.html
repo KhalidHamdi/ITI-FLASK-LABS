@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Welcome to the Book Management System</h1>
+    <p>This is your personal library manager. Register, add books, and manage your collection!</p>
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('add_book') }}" class="btn btn-primary">Add a new book</a>
+        <a href="{{ url_for('library') }}" class="btn btn-primary">Manage Your Collection</a>
+    {% else %}
+        <p>Please<a href="{{ url_for('login') }}" class="btn btn-link">log in</a>or<a href="{{ url_for('register') }}" class="btn btn-link">create an account</a>to get started.</p>
+    {% endif %}
+{% endblock %}

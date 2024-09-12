@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">My Library</h2>
+
+    {% if books %}
+        <ul class="list-unstyled">
+            {% for book in books %}
+                <li class="d-flex align-items-center mb-3">
+                    <img src="{{ url_for('book_image', book_id=book.id) }}" alt="{{ book.title }}" width="100" class="mr-3">
+                    <strong class="flex-grow-1">{{ book.title }}</strong>
+                    <a href="{{ url_for('delete_book', book_id=book.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven't added any books yet.</p>
+    {% endif %}
+    
+    <a href="{{ url_for('add_book') }}" class="btn btn-primary">Add a new book</a>
+</div>
+{% endblock %}

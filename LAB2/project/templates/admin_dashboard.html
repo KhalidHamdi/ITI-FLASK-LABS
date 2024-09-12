@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+        <h2>Admin Dashboard</h2>
+        
+        <div class="section">
+            <h3>Users</h3>
+            <ul>
+                {% for user in users %}
+                <li>{{ user.username }} 
+                    <a href="{{ url_for('delete_user', user_id=user.id) }}" class="btn btn-primary">Delete</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>Books</h3>
+            <ul>
+                {% for book in books %}
+                <li>{{ book.title }}
+                    <a href="{{ url_for('edit_book', book_id=book.id) }}" class="btn btn-primary">Edit</a>
+                    <a href="{{ url_for('delete_book', book_id=book.id) }}" class="btn btn-primary">Delete</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+{% endblock %}
