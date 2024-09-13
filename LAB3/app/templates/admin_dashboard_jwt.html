@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="admin-dashboard">
+    <h2>Admin Panel</h2>
+    <h3>Manage Users</h3>
+    <div class="user-list">
+        {% for user in users %}
+            <div class="user-card">
+                <p>Username: {{ user.username }}</p>
+                <p>Email: {{ user.email }}</p>
+                <a href="{{ url_for('main.delete_user_jwt', user_id=user.id) }}" class="btn danger">Delete User</a>
+            </div>
+        {% else %}
+            <p>No users found.</p>
+        {% endfor %}
+    </div>
+
+    <h3>Manage Books</h3>
+    <div class="book-list">
+        {% for book in books %}
+            <div class="book-card">
+                <h3>{{ book.title }}</h3>
+                <p>Author: {{ book.author }}</p>
+                <a href="{{ url_for('main.edit_book_jwt', book_id=book.id) }}" class="btn">Edit</a>
+                <a href="{{ url_for('main.delete_book_jwt', book_id=book.id) }}" class="btn danger">Delete</a>
+            </div>
+        {% else %}
+            <p>No books found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
