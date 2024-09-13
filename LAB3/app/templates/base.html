@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Flask Library{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{{ url_for('main.dashboard_jwt') }}" class="navbar-brand">My Library</a>
+            <div class="nav-links">
+                {% set current_user = current_user if current_user.is_authenticated else get_user_from_token() %}
+                {% if current_user %}
+                    <a href="{{ url_for('main.dashboard_jwt') }}">Dashboard</a>
+                    <a href="{{ url_for('main.add_book_jwt') }}">Add Book</a>
+                    {% if current_user.is_admin %}
+                    <a href="{{ url_for('main.admin_dashboard_jwt') }}">Admin</a>
+                {% endif %}
+                    <a href="{{ url_for('main.logout_jwt') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('main.login_jwt_view') }}">Login</a>
+                    <a href="{{ url_for('main.register_jwt_view') }}">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 My Library | Made by Khalid Hamdi</p>
+    </footer>
+</body>
+</html>
